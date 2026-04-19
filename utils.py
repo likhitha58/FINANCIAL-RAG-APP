@@ -46,19 +46,30 @@ def load_llm():
         tokenizer=tokenizer,
         max_length=512,
         temperature=0.1,
-        do_sample=False
+        do_sample=True # Set to True to avoid warning with temperature
     )
     
     return HuggingFacePipeline(pipeline=pipe)
 
 def get_answer(query, vector_store, llm):
-    """Retrieves relevant chunks and generates an answer."""
+    """Retrieves relevant chunks and generates a detailed financial answer."""
     # Retrieve top 3 relevant chunks
     docs = vector_store.similarity_search(query, k=3)
     context = "\n".join([doc.page_content for doc in docs])
     
-    # Simple prompt template for FLAN-T5
-    prompt = f"Context: {context}\n\nQuestion: {query}\n\nAnswer:"
+    # Enhanced prompt template for professional financial analysis
+    prompt = f"""
+    You are an expert Financial Analyst. 
+    Instructions: 
+    - If the user asks about a financial ratio or metric, first define it and state its standard formula.
+    - Then, calculate or extract the specific answer using the provided context.
+    - Be professional and concise.
+
+    Context: {context}
+    
+    Question: {query}
+    
+    Detailed Answer:"""
     
     response = llm.invoke(prompt)
     return response, docs
