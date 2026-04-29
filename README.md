@@ -1,6 +1,6 @@
-# 📊 AI Financial Report Analyzer (RAG System)
+# 📊 Payout AI - Financial Intelligence System
 
-A state-of-the-art **Retrieval-Augmented Generation (RAG)** application designed to analyze complex financial documents. This project transforms a basic Python notebook into a premium, interactive dashboard that provides expert-level financial insights.
+A state-of-the-art **Retrieval-Augmented Generation (RAG)** application designed to analyze complex financial documents. This project transforms a basic Python notebook into a premium, interactive dashboard ("Payout AI") that provides expert-level financial insights.
 
 ---
 
@@ -11,7 +11,7 @@ The application follows a modular RAG pipeline to ensure accuracy and context-aw
 ### High-Level Architecture
 ```mermaid
 graph TD
-    UI[Streamlit Frontend] -->|PDF Upload| Extractor[PyMuPDF Text Extractor]
+    UI[Streamlit Frontend - Payout AI] -->|PDF Upload| Extractor[PyMuPDF Text Extractor]
     Extractor --> Chunker[LangChain Text Splitter]
     Chunker --> Embedder[Sentence-Transformers all-MiniLM-L6-v2]
     Embedder --> VectorDB[(FAISS Vector Store)]
@@ -27,7 +27,7 @@ graph TD
 ```mermaid
 sequenceDiagram
     participant User
-    participant App as app.py
+    participant App as app.py (Payout AI)
     participant Utils as utils.py
     participant FAISS
     participant LLM as FLAN-T5
@@ -62,8 +62,8 @@ sequenceDiagram
 ## ✨ Features
 - **Dynamic PDF Support**: Upload and process any PDF report in real-time.
 - **Strict Citation Engine**: The AI extracts exact numbers and explicitly cites document references for 100% accuracy and zero hallucination.
-- **Deep Space UI**: A premium, glassmorphism-inspired dark mode dashboard with dynamic hover effects and gradients.
-- **Interactive Chat History**: Your past queries are saved as interactive buttons—clicking them seamlessly reloads past context and sources.
+- **Premium Deep Space UI**: A beautiful, glassmorphism-inspired dark mode dashboard with dynamic hover effects, gradients, and a responsive layout.
+- **Interactive Chat History**: Your past queries are saved as interactive buttons in the "Recent Activity" tab—clicking them seamlessly reloads past context and sources.
 - **Privacy First**: Runs 100% locally on your machine—no data leaves your computer.
 
 ---
@@ -94,14 +94,14 @@ pip install -r requirements.txt
     ```
 2.  **Access the App**: Open your browser to `http://localhost:8501`.
 3.  **Analyze**:
-    - Upload a financial report via the sidebar.
-    - Click **Process Analytics**.
+    - Upload a financial report via the sidebar under **Payout AI**.
+    - Click **🚀 Process Analytics**.
     - Ask questions like: *"What is the debt to equity ratio?"* or *"Analyze the revenue growth."*
 
 ---
 
 ## 📁 Project Structure
-- `app.py`: High-performance dashboard built with Streamlit.
-- `utils.py`: The core RAG intelligence engine.
+- `app.py`: High-performance dashboard built with Streamlit, containing the Payout AI UI.
+- `utils.py`: The core RAG intelligence engine managing embeddings, chunking, and LLM inference.
 - `requirements.txt`: Project dependencies.
 - `temp_uploads/`: Secure local storage for your analysis session.

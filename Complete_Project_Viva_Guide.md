@@ -1,8 +1,8 @@
-# Complete Project Viva Guide: AI Financial Report Analyzer
+# Complete Project Viva Guide: Payout AI (Financial Intelligence System)
 
 ## 1. Project Overview
 **What the project does:**
-The AI Financial Report Analyzer is a Retrieval-Augmented Generation (RAG) system built to parse, index, and analyze complex PDF financial documents. It acts as an interactive intelligence dashboard where a user can upload a financial report (e.g., balance sheets, annual reports) and ask natural language questions. The AI extracts exact numerical values and text, explicitly citing the document reference to prevent hallucinations.
+Payout AI (formerly AI Financial Report Analyzer) is a Retrieval-Augmented Generation (RAG) system built to parse, index, and analyze complex PDF financial documents. It acts as an interactive intelligence dashboard where a user can upload a financial report (e.g., balance sheets, annual reports) and ask natural language questions. The AI extracts exact numerical values and text, explicitly citing the document reference to prevent hallucinations.
 
 **Problem being solved:**
 Financial reports are often hundreds of pages long and dense with numerical data, making manual extraction tedious and error-prone. Standard Large Language Models (LLMs) tend to "hallucinate" numbers when asked about specific financial metrics if they don't have exact context. This project solves this by forcing the AI to extract data *only* from the uploaded document and proving its accuracy via citations.
