@@ -8,3 +8,7 @@ venv/
 # App specific
 temp_uploads/
 .streamlit/
+
+# IEEE Paper References
+*IEEE_Paper*
+IEEE_Paper*

@@ -53,23 +53,29 @@ def load_llm():
 
 def get_answer(query, vector_store, llm):
     """Retrieves relevant chunks and generates a detailed financial answer."""
-    # Retrieve top 3 relevant chunks
-    docs = vector_store.similarity_search(query, k=3)
-    context = "\n".join([doc.page_content for doc in docs])
+    # Retrieve top 2 relevant chunks to stay within model's 512 token limit
+    docs = vector_store.similarity_search(query, k=2)
     
-    # Enhanced prompt template for professional financial analysis
+    # Format context with explicit reference numbers
+    context_parts = []
+    for i, doc in enumerate(docs):
+        context_parts.append(f"[Reference {i+1}]: {doc.page_content}")
+    context = "\n\n".join(context_parts)
+    
+    # Strict prompt for exact extraction and citations
     prompt = f"""
-    You are an expert Financial Analyst. 
-    Instructions: 
-    - If the user asks about a financial ratio or metric, first define it and state its standard formula.
-    - Then, calculate or extract the specific answer using the provided context.
-    - Be professional and concise.
+    Answer the Question based strictly on the provided Context. 
+    Extract the exact numerical values and provide a clear, accurate sentence.
+    You MUST cite your source using the reference number (e.g., [Reference 1]).
+    Do not hallucinate or make up information. If the answer is not in the context, state "Information not available."
 
-    Context: {context}
+    Context:
+    {context}
     
-    Question: {query}
+    Question:
+    {query}
     
-    Detailed Answer:"""
+    Answer with citations:"""
     
     response = llm.invoke(prompt)
     return response, docs

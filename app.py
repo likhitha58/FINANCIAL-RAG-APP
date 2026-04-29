@@ -10,28 +10,30 @@ st.set_page_config(
     layout="wide"
 )
 
-# --- Custom CSS for Payout-inspired Styling ---
+# --- Custom CSS for Premium Dark Styling ---
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 
-    html, body, [data-testid="stAppViewContainer"] {
-        font-family: 'Inter', sans-serif;
-        background-color: #f1f4f9; 
+    html, body, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
+        font-family: 'Outfit', sans-serif;
+        background-color: #0f172a; 
+        color: #e2e8f0 !important;
     }
 
     /* Global Text Color - Force high contrast */
     [data-testid="stAppViewContainer"] {
-        color: #1a202c !important;
+        color: #e2e8f0 !important;
     }
 
     /* Heading Colors */
     .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, h1, h2, h3 {
-        color: #1a365d !important;
+        color: #f8fafc !important;
+        font-weight: 600;
     }
     
     .stSubheader {
-        color: #1a365d !important;
+        color: #f8fafc !important;
     }
     header {visibility: hidden;}
 
@@ -39,12 +41,13 @@ st.markdown("""
     .block-container {
         padding-top: 2rem !important;
         padding-bottom: 2rem !important;
+        max-width: 1200px;
     }
 
-    /* Sidebar Styling - Darker text and clear backgrounds */
+    /* Sidebar Styling */
     [data-testid="stSidebar"] {
-        background-color: #ffffff !important;
-        border-right: 1px solid #e2e8f0;
+        background-color: #1e293b !important;
+        border-right: 1px solid #334155;
     }
     
     [data-testid="stSidebar"] .stMarkdown h1, 
@@ -52,37 +55,48 @@ st.markdown("""
     [data-testid="stSidebar"] .stMarkdown h3,
     [data-testid="stSidebar"] p,
     [data-testid="stSidebar"] label {
-        color: #1a202c !important;
-        font-weight: 600 !important;
+        color: #e2e8f0 !important;
+        font-weight: 500 !important;
     }
 
     /* Card Styling */
     .dashboard-card {
-        background-color: #ffffff;
+        background: linear-gradient(145deg, #1e293b, #0f172a);
         padding: 30px;
-        border-radius: 16px;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        border: 1px solid #e2e8f0;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        border: 1px solid #334155;
         margin-bottom: 24px;
-        color: #1a202c !important;
+        color: #e2e8f0 !important;
+        backdrop-filter: blur(10px);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.6);
+        border-color: #8b5cf6;
     }
 
     .dashboard-card p, .dashboard-card h3 {
-        color: #1a202c !important;
+        color: #e2e8f0 !important;
     }
 
     /* Title Styling */
     .header-text {
-        font-size: 36px;
+        font-size: 42px;
         font-weight: 800;
-        color: #1a365d;
+        background: -webkit-linear-gradient(45deg, #38bdf8, #818cf8, #c084fc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         margin-bottom: 8px;
     }
     .subheader-text {
-        font-size: 16px;
-        color: #2d3748; /* Darker than before */
+        font-size: 18px;
+        color: #94a3b8;
         margin-bottom: 32px;
-        font-weight: 500;
+        font-weight: 400;
+        letter-spacing: 0.5px;
     }
 
     /* Button Styling */
@@ -90,58 +104,82 @@ st.markdown("""
         width: 100%;
         border-radius: 12px;
         height: 3.5em;
-        background-color: #1a365d; /* Deeper navy */
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
         color: white !important;
         font-weight: 600;
         border: none;
-        transition: all 0.2s ease;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
     }
     .stButton>button:hover {
-        background-color: #2a4365;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+        transform: translateY(-1px);
+        color: white !important;
     }
 
-    /* Input Styling - Fix visibility while typing */
+    /* Input Styling */
     .stTextInput label {
-        color: #1a202c !important;
-        font-weight: 600 !important;
+        color: #e2e8f0 !important;
+        font-weight: 500 !important;
     }
     
-    /* Target the input element directly and its focus state */
-    .stTextInput div[data-baseweb="input"] input {
-        color: #1a202c !important;
-        -webkit-text-fill-color: #1a202c !important; /* Force for some browsers */
-        caret-color: #1a202c !important;
-        background-color: #ffffff !important;
+    .stTextInput div[data-baseweb="input"] {
+        background-color: #0f172a !important;
+        border-radius: 12px;
+        border: 1px solid #334155;
+        transition: all 0.3s ease;
     }
 
-    .stTextInput>div>div>input {
-        border-radius: 10px;
-        border: 1px solid #cbd5e0;
-        padding: 12px;
-        background-color: #ffffff !important;
-        color: #1a202c !important;
+    .stTextInput div[data-baseweb="input"]:focus-within {
+        border-color: #8b5cf6;
+        box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+    }
+
+    .stTextInput div[data-baseweb="input"] input {
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+        caret-color: #8b5cf6 !important;
+        background-color: transparent !important;
+        padding: 14px;
     }
 
     /* Source Box Styling */
     .source-container {
         font-size: 14px;
-        color: #1a202c;
-        background-color: #f7fafc;
-        padding: 18px;
+        color: #cbd5e1;
+        background-color: #1e293b;
+        padding: 20px;
         border-radius: 12px;
-        border-left: 5px solid #2b6cb0;
-        margin-top: 12px;
-        box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+        border-left: 4px solid #8b5cf6;
+        margin-top: 16px;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
     }
 
     /* Status & Spinner text */
     .stSpinner>div>div {
-        color: #1a365d !important;
+        color: #8b5cf6 !important;
     }
     .stAlert p {
-        color: #1a202c !important;
+        color: #e2e8f0 !important;
         font-weight: 500;
+    }
+    .stAlert {
+        background-color: rgba(139, 92, 246, 0.1) !important;
+        border: 1px solid rgba(139, 92, 246, 0.2) !important;
+        border-radius: 12px;
+    }
+    
+    /* File uploader styling */
+    [data-testid="stFileUploadDropzone"] {
+        border: 2px dashed #334155 !important;
+        border-radius: 16px !important;
+        background-color: #0f172a !important;
+        transition: all 0.3s ease;
+    }
+    [data-testid="stFileUploadDropzone"]:hover {
+        border-color: #8b5cf6 !important;
+        background-color: rgba(139, 92, 246, 0.05) !important;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -158,6 +196,8 @@ if 'llm' not in st.session_state:
         st.session_state.llm = load_llm()
 if 'history' not in st.session_state:
     st.session_state.history = []
+if 'active_chat_idx' not in st.session_state:
+    st.session_state.active_chat_idx = None
 
 # --- Sidebar: File Manager ---
 with st.sidebar:
@@ -188,8 +228,8 @@ if st.session_state.vector_store is None:
     # Welcome Layout
     st.markdown("""
         <div class='dashboard-card'>
-            <h3 style='color: #2d3748;'>Welcome to the Financial Analyzer</h3>
-            <p style='color: #718096;'>Please upload a financial report in the sidebar to begin your intelligence session. 
+            <h3 style='color: #f8fafc; margin-bottom: 16px;'>Welcome to the Financial Analyzer</h3>
+            <p style='color: #94a3b8; line-height: 1.6;'>Please upload a financial report in the sidebar to begin your intelligence session. 
             Once processed, you can ask complex questions about revenue, liabilities, and growth metrics.</p>
         </div>
     """, unsafe_allow_html=True)
@@ -207,16 +247,25 @@ else:
                 with st.spinner("Generating Insights..."):
                     answer, sources = get_answer(user_query, st.session_state.vector_store, st.session_state.llm)
                     
-                    st.markdown("### 🔍 Result")
-                    st.write(answer)
+                    # Results are now displayed by the active chat section below
                     
-                    st.session_state.history.append({"q": user_query, "a": answer})
-                    
-                    with st.expander("📚 View Supporting Evidence"):
-                        for i, doc in enumerate(sources):
-                            st.markdown(f"<div class='source-container'><strong>Reference {i+1}:</strong><br>{doc.page_content}</div>", unsafe_allow_html=True)
+                    st.session_state.history.append({"q": user_query, "a": answer, "sources": sources})
+                    st.session_state.active_chat_idx = len(st.session_state.history) - 1
             else:
                 st.warning("Please enter a query.")
+                
+        # Display the active chat (either just generated or selected from history)
+        if st.session_state.active_chat_idx is not None and st.session_state.active_chat_idx < len(st.session_state.history):
+            active_item = st.session_state.history[st.session_state.active_chat_idx]
+            st.markdown("### 🔍 Result")
+            st.markdown(f"**Q:** {active_item['q']}")
+            st.write(active_item['a'])
+            
+            if 'sources' in active_item:
+                with st.expander("📚 View Supporting Evidence"):
+                    for i, doc in enumerate(active_item['sources']):
+                        st.markdown(f"<div class='source-container'><strong>Reference {i+1}:</strong><br>{doc.page_content}</div>", unsafe_allow_html=True)
+                        
         st.markdown("</div>", unsafe_allow_html=True)
 
     with col_hist:
@@ -224,13 +273,13 @@ else:
         st.subheader("📜 Recent Activity")
         if not st.session_state.history:
             st.write("No queries yet.")
-        for item in reversed(st.session_state.history[-5:]): # Show last 5
-            st.markdown(f"""
-                <div style='margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #edf2f7;'>
-                    <div style='font-weight: 600; color: #4a5568;'>Q: {item['q']}</div>
-                    <div style='font-size: 14px; color: #718096;'>A: {item['a'][:100]}...</div>
-                </div>
-            """, unsafe_allow_html=True)
+        start_idx = max(0, len(st.session_state.history) - 5)
+        for i in range(len(st.session_state.history) - 1, start_idx - 1, -1):
+            item = st.session_state.history[i]
+            # Use a button for each history item to load it into the main view
+            if st.button(f"💬 {item['q'][:45]}{'...' if len(item['q'])>45 else ''}", key=f"hist_{i}", use_container_width=True):
+                st.session_state.active_chat_idx = i
+                st.rerun()
         st.markdown("</div>", unsafe_allow_html=True)
 
 # --- Footer ---

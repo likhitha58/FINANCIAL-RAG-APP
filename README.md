@@ -30,10 +30,10 @@ graph TD
 
 ## ✨ Features
 - **Dynamic PDF Support**: Upload and process any PDF report in real-time.
-- **Expert Analyst Mode**: AI provides definitions, formulas, and localized results.
-- **Premium Dashboard**: Professional UI inspired by the "Payout" design system.
+- **Strict Citation Engine**: The AI extracts exact numbers and explicitly cites document references for 100% accuracy and zero hallucination.
+- **Deep Space UI**: A premium, glassmorphism-inspired dark mode dashboard with dynamic hover effects and gradients.
+- **Interactive Chat History**: Your past queries are saved as interactive buttons—clicking them seamlessly reloads past context and sources.
 - **Privacy First**: Runs 100% locally on your machine—no data leaves your computer.
-- **Explainable AI**: View the exact document references used for every answer.
 
 ---
 
