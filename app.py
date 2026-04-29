@@ -259,9 +259,16 @@ else:
             active_item = st.session_state.history[st.session_state.active_chat_idx]
             st.markdown("### 🔍 Result")
             st.markdown(f"**Q:** {active_item['q']}")
-            st.write(active_item['a'])
             
-            if 'sources' in active_item:
+            # Display answer with prominent styling
+            st.markdown(f"""
+            <div class='dashboard-card' style='background: linear-gradient(145deg, #1e3a5f, #1e293b); border-left: 4px solid #38bdf8;'>
+                <strong style='color: #38bdf8; font-size: 16px;'>📝 Answer:</strong><br>
+                <p style='color: #e2e8f0; font-size: 15px; margin-top: 10px;'>{active_item['a']}</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            if 'sources' in active_item and len(active_item['sources']) > 0:
                 with st.expander("📚 View Supporting Evidence"):
                     for i, doc in enumerate(active_item['sources']):
                         st.markdown(f"<div class='source-container'><strong>Reference {i+1}:</strong><br>{doc.page_content}</div>", unsafe_allow_html=True)
