@@ -8,16 +8,47 @@ A state-of-the-art **Retrieval-Augmented Generation (RAG)** application designed
 
 The application follows a modular RAG pipeline to ensure accuracy and context-aware responses:
 
+### High-Level Architecture
 ```mermaid
 graph TD
-    A[Upload PDF] --> B[Text Extraction - PyMuPDF]
-    B --> C[Text Chunking - LangChain]
-    C --> D[Embeddings Creation - all-MiniLM-L6-v2]
-    D --> E[Vector Storage - FAISS]
-    E --> F[User Question]
-    F --> G[Semantic Retrieval - Context Search]
-    G --> H[LLM Generation - FLAN-T5]
-    H --> I[Detailed Financial Answer]
+    UI[Streamlit Frontend] -->|PDF Upload| Extractor[PyMuPDF Text Extractor]
+    Extractor --> Chunker[LangChain Text Splitter]
+    Chunker --> Embedder[Sentence-Transformers all-MiniLM-L6-v2]
+    Embedder --> VectorDB[(FAISS Vector Store)]
+    
+    UI -->|User Query| QueryEmbedder[Query Embedding]
+    QueryEmbedder -->|Similarity Search| VectorDB
+    VectorDB -->|Top 2 Chunks| ContextBuilder[Context & Prompt Builder]
+    ContextBuilder --> LLM[HuggingFace Pipeline: flan-t5-base]
+    LLM -->|Text + Citation| UI
+```
+
+### Data Flow Diagram
+```mermaid
+sequenceDiagram
+    participant User
+    participant App as app.py
+    participant Utils as utils.py
+    participant FAISS
+    participant LLM as FLAN-T5
+
+    User->>App: Uploads PDF
+    App->>Utils: extract_text_from_pdf()
+    Utils-->>App: Raw Text
+    App->>Utils: chunk_text(text)
+    Utils-->>App: Text Chunks
+    App->>Utils: create_vector_store(chunks)
+    Utils->>FAISS: Create Embeddings & Store
+    FAISS-->>App: Vector DB Ready
+    
+    User->>App: Asks Question
+    App->>FAISS: similarity_search(query, k=2)
+    FAISS-->>App: Top 2 Relevant Chunks
+    App->>Utils: get_answer(query, docs)
+    Utils->>LLM: Strict Prompt + Context
+    LLM-->>Utils: Exact Answer + Citation
+    Utils-->>App: Response Text
+    App->>User: Displays Answer & Sources
 ```
 
 1.  **Ingestion**: Extracts raw text from uploaded financial reports.
